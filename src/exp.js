@@ -7,6 +7,8 @@ const forecast = require('../util/forecast')
 
 const app = express()
 
+const port = process.env.PORT || 3000
+
 //define paths for express config
 const publicPath = path.join(__dirname, '../public')
 const viewsPath = path.join(__dirname, '../templates/views')
@@ -50,7 +52,7 @@ app.get('/weather', (req, res) => {
 
       if (address) {
 
-            geocode(address, (err,loc) => {
+            geocode(address, (err, loc) => {
                   if (err) {
                         return res.send({ error: err })
                   } else {
@@ -59,7 +61,7 @@ app.get('/weather', (req, res) => {
                                     return res.send({ error: err })
                               } else {
                                     return res.send(JSON.stringify({
-                                          location:loc.name,
+                                          location: loc.name,
                                           address,
                                           info
                                     }))
@@ -100,7 +102,7 @@ app.get('*', (req, res) => {
       })
 })
 
-app.listen(3000, () => {
-      console.log('listening on port 3000')
+app.listen(port, () => {
+      console.log(`listening on port ${port}`)
 })
 
